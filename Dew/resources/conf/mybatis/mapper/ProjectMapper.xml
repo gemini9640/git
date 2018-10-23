@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dew.mapper.ProjectMapper">
+  <resultMap id="BaseResultMap" type="com.dew.db.Project">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="project" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="caption" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="img_path" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, project, title, caption, content, create_time, img_path
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from project
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from project
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from project
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dew.db.Project">
+    insert into project (id, project, title, 
+      caption, content, create_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{project,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{caption,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dew.db.Project">
+    insert into project
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="project != null">
+        project,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="caption != null">
+        caption,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="project != null">
+        #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="caption != null">
+        #{caption,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dew.db.Project">
+    update project
+    <set>
+      <if test="project != null">
+        project = #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="caption != null">
+        caption = #{caption,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imgPath != null">
+        img_path = #{imgPath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dew.db.Project">
+    update project
+    set project = #{project,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      caption = #{caption,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      img_path = #{imgPath,jdbcType=VARCHAR},
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
